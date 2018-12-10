@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Easy PDF Editor</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
+  </head>
+  <body>
+    <h1>Easy PDF Editor</h1>
+    <input id="browse-path" type="file" name="Choose PDF File" accept=".pdf,.PDF" multiple="false"><br><br>
+    <form>
+      <input id="clear" type="button" name="Clear" value="Clear Page Fields"><br><br>
+      <fieldset id="pages">
+        <legend>Add page numbers that should be cutted:</legend>
+        <div id="page-1" class="page">
+          1. Title: <input class="title" type="text">
+          From: <input class="from" type="number">
+          To: <input class="to"type="number"><br>
+        </div>
+      </fieldset>
+    </form><br>
+    <input id="generate" class="" type="submit" name="Generate" value="Generate">
+    <script type="text/javascript" src="./renderer.js"> </script>
+  </body>
+</html>

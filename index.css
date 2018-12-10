@@ -1,0 +1,15 @@
+body {
+  text-align: center;
+}
+
+#pages {
+  position: relative;
+}
+
+.from, .to {
+  width: 60px;
+}
+
+#clear {
+  float: right;
+}
