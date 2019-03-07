@@ -6,7 +6,7 @@
   "scripts": {
     "test": "test",
     "start": "electron .",
-    "package-linux": "electron-packager . pdf_editorial --overwrite --asar=true --platform=linux --arch=x64 --icon=easy_pdf_editor.png --prune=true --out=releases"
+    "package-linux": "electron-packager . pdf_editorial --overwrite --asar=true --platform=linux --arch=x64 --icon=pdf_editorial.png --prune=true --out=releases"
   },
   "repository": {
     "type": "git",
