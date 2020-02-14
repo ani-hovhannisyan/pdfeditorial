@@ -1,8 +1,12 @@
 
 document.getElementById("browse-path").addEventListener("change", onChangeChoose);
+//Cutting
 document.getElementById("generate").addEventListener("click", onClickGenerate);
 document.getElementById("pages").addEventListener("keyup", onPagesKeyUp);
+document.getElementById("next-range-1").addEventListener("click", onNextRange);
 document.getElementById("clear").addEventListener("click", onClickClear);
+//Convertion
+document.getElementById("generate").addEventListener("click", onClickConvert);
 
 global.extract = require('pdf-text-extract');
 global.hummus = require('hummus');
@@ -10,16 +14,28 @@ global.PdfReader = require("pdfreader").PdfReader;
 global.path = require('path');
 global.fs = require('fs');
 
-const TEMPLATE_PAGE_FIELDS = 'xxx. Title: <input class="title" type="text">' +
-  ' From: <input class="from" type="number"> To: <input ' +
-  'class="to" type="number"><br>';
+const INPUTELCLASS = 'form-control';
+const TEMPLATE_PAGE_FIELDS =
+    '<th scope="row">xxx</th>'
+  + '<td> <div class="input-group mb-2">'
+    + '<input type="text" class="title form-control" placeholder="Page Title" aria-label="Page Title" aria-describedby="basic-addon1">'
+  + '</div> </td>'
+  + '<td> <div class="input-group mb-3">'
+    + '<input type="number" class="from form-control" placeholder="From" aria-label="From" aria-describedby="basic-addon1">'
+  + '</div> </td>'
+  + '<td> <div class="input-group mb-3">'
+    + '<input type="number" class="to form-control" placeholder="To" aria-label="To" aria-describedby="basic-addon1">'
+  + '</div> </td>'
+  + '<td> <div class="btn-group" role="group" aria-label="Next Range">'
+    + '  <button id="next-range-" type="button" class="btn btn-secondary">Next Range</button>'
+  + '</div> </td>';
+
 global.PAGES_COUNT = 1;
 global.sourcePDF = 0;
 global.outputFolder = 0;
 global.content_from = [];
 global.content_to = [];
-global.authors = [
-];
+global.authors = [];
 
 function split_pdf () {
   fs.readdirSync(outputFolder).filter((file) => {
@@ -59,7 +75,7 @@ function onChangeChoose (e) {
 };
 
 function onPagesKeyUp (e) {
-  if (e.keyCode == 13 && e.srcElement.className == "to") {
+  if (e.keyCode == 13 && e.srcElement.className == INPUTELCLASS) {
     createNewPageField();
   }
 };
@@ -115,6 +131,16 @@ function onClickGenerate (e) {
   }
 };
 
+function onClickConvert (e) {
+  let choose = document.getElementById("browse-path");
+  if (choose.files.length && sourcePDF && outputFolder) {
+    split_pdf(authors, content_from);
+  } else {
+    alert("Please choose PDF file.");
+  }
+};
+
+
 function onClickClear (e) {
   let p = document.getElementById("pages");
   let els = p.getElementsByClassName("page");
@@ -126,11 +152,17 @@ function onClickClear (e) {
 };
 
 function createNewPageField () {
-    let el = document.createElement("div");
+    let el = document.createElement("tr");
     el.id = "page-" + ++PAGES_COUNT;
     el.className = "page";
-    el.innerHTML = TEMPLATE_PAGE_FIELDS.replace("xxx", PAGES_COUNT);
-    let pages = document.getElementById("pages");
-    pages.append(el);
-    el.getElementsByClassName("title")[0].focus();
+    el.innerHTML = TEMPLATE_PAGE_FIELDS.replace("xxx", PAGES_COUNT)
+                   .replace("next-range-", "next-range-" + PAGES_COUNT);
+    $('#pages > tbody:last-child').append(el);
+    el.getElementsByClassName(INPUTELCLASS)[0].focus();
+};
+
+function onNextRange () {
+    //TODO focus next row, add if condition to not add if it already has below row
+    createNewPageField();
+    document.getElementById("next-range-" + PAGES_COUNT).addEventListener("click", onNextRange);
 };
