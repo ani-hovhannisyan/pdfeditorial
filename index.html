@@ -14,42 +14,53 @@
     <script>require('bootstrap');</script>
   </head>
   <body>
-    <h1>PDF Editorial</h1>
-
-    <div class="container">
-      <input id="browse-path" type="file" name="Choose PDF File" accept=".pdf,.PDF" multiple="false"><br><br>
-      <input id="clear" type="button" name="Clear" value="Clear Page Fields"><br><br>
-        <legend>Add page numbers that should be cutted:</legend>
-        <table id="pages" class="table table-striped table-dark table-responsive-sm">
-          <thead>
-            <tr id="page-1">
-              <th scope="col">#</th>
-              <th scope="col">Title</th>
-              <th scope="col">From</th>
-              <th scope="col">To</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td> <div class="input-group mb-3">
-                <input type="text" class="title form-control" placeholder="Page Title" aria-label="Page Title" aria-describedby="basic-addon1">
-              </div> </td>
-              <td> <div class="input-group mb-3">
-                <input type="number" class="from form-control" placeholder="From" aria-label="From" aria-describedby="basic-addon1">
-              </div> </td>
-              <td> <div class="input-group mb-3">
-                <input type="number" class="to form-control" placeholder="To" aria-label="To" aria-describedby="basic-addon1">
-              </div> </td>
-              <td> <div class="btn-group" role="group" aria-label="Next Range">
-                <button type="button" id="next-range-1" class=" btn btn-secondary">Next Range</button>
-              </div> </td>
-            </tr>
-          </tbody>
-        </table>
-        <input id="generate" class="" type="submit" name="Generate" value="Generate">
+    <div class="container text-center">
+      <h1>PDF Editorial</h1>
+      <div class="input-group mb-3">
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" id="browse-path" name="Choose PDF File"
+                 accept=".pdf,.PDF" multiple="false" aria-describedby="inputGroupFileAddon01">
+          <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
         </div>
-
-        <script type="text/javascript" src="./renderer.js"> </script>
+      </div>
+      <input id="clear" type="button" name="Clear" value="Clear Page Fields">
+      <div class="card">
+        <div class="card-header">Add page numbers that should be cutted:</div>
+        <div class="card-body">
+          <table id="pages" class="table table-striped table-light table-responsive-sm">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">From</th>
+                <th scope="col">To</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="page" id="page-1">
+                <th scope="row">1</th>
+                <td><div class="input-group mb-3">
+                  <input type="text" class="title form-control" placeholder="Page Title" aria-label="Page Title" aria-describedby="basic-addon1">
+                </div></td>
+                <td><div class="input-group mb-3">
+                  <input type="number" class="from form-control" placeholder="From" aria-label="From" aria-describedby="basic-addon1">
+                </div></td>
+                <td><div class="input-group mb-3">
+                  <input type="number" class="to form-control" placeholder="To" aria-label="To" aria-describedby="basic-addon1">
+                </div></td>
+                <td><div class="btn-group" role="group" aria-label="Next Range">
+                  <button type="button" id="next-range-1" class="btn btn-outline-secondary">Next Range</button>
+                </div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <input id="generate" class="" type="submit" name="Generate" value="Generate">
+    </div>
+    </div>
+    <!-- Custom Scripts -->
+    <script type="text/javascript" src="./renderer.js"> </script>
   </body>
 </html>

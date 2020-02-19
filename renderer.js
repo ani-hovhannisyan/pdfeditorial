@@ -2,7 +2,6 @@
 document.getElementById("browse-path").addEventListener("change", onChangeChoose);
 //Cutting
 document.getElementById("generate").addEventListener("click", onClickGenerate);
-document.getElementById("pages").addEventListener("keyup", onPagesKeyUp);
 document.getElementById("next-range-1").addEventListener("click", onNextRange);
 document.getElementById("clear").addEventListener("click", onClickClear);
 //Convertion
@@ -71,12 +70,6 @@ function onChangeChoose (e) {
   console.log("Choosed", sourcePDF);
   if (! fs.existsSync(sourcePDF)) {
     alert("Please choose another valid PDF file");
-  }
-};
-
-function onPagesKeyUp (e) {
-  if (e.keyCode == 13 && e.srcElement.className == INPUTELCLASS) {
-    createNewPageField();
   }
 };
 
@@ -159,6 +152,7 @@ function createNewPageField () {
                    .replace("next-range-", "next-range-" + PAGES_COUNT);
     $('#pages > tbody:last-child').append(el);
     el.getElementsByClassName(INPUTELCLASS)[0].focus();
+    document.getElementById("next-range-" + PAGES_COUNT).addEventListener("click", onNextRange);
 };
 
 function onNextRange () {

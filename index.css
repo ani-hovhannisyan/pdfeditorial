@@ -1,15 +1,4 @@
-body {
-  text-align: center;
+.custom-file, .container, .card {
+  margin: 5%;
 }
 
-#pages {
-  position: relative;
-}
-
-.from, .to {
-  width: 60px;
-}
-
-#clear {
-  float: right;
-}
