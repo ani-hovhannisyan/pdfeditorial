@@ -2,7 +2,7 @@
 document.getElementById("browse-path").addEventListener("change", onChangeChoose);
 //Cutting
 document.getElementById("generate").addEventListener("click", onClickGenerate);
-document.getElementById("next-range-1").addEventListener("click", onNextRange);
+document.getElementById("next-range").addEventListener("click", onNextRange);
 document.getElementById("clear").addEventListener("click", onClickClear);
 //Convertion
 document.getElementById("generate").addEventListener("click", onClickConvert);
@@ -25,9 +25,7 @@ const TEMPLATE_PAGE_FIELDS =
   + '<td> <div class="input-group mb-3">'
     + '<input type="number" class="to form-control" placeholder="To" aria-label="To" aria-describedby="basic-addon1">'
   + '</div> </td>'
-  + '<td> <div class="btn-group" role="group" aria-label="Next Range">'
-    + '  <button id="next-range-" type="button" class="btn btn-secondary">Next Range</button>'
-  + '</div> </td>';
+  ;
 
 global.PAGES_COUNT = 1;
 global.sourcePDF = 0;
@@ -148,15 +146,13 @@ function createNewPageField () {
     let el = document.createElement("tr");
     el.id = "page-" + ++PAGES_COUNT;
     el.className = "page";
-    el.innerHTML = TEMPLATE_PAGE_FIELDS.replace("xxx", PAGES_COUNT)
-                   .replace("next-range-", "next-range-" + PAGES_COUNT);
+    el.innerHTML = TEMPLATE_PAGE_FIELDS.replace("xxx", PAGES_COUNT);
     $('#pages > tbody:last-child').append(el);
     el.getElementsByClassName(INPUTELCLASS)[0].focus();
-    document.getElementById("next-range-" + PAGES_COUNT).addEventListener("click", onNextRange);
 };
 
 function onNextRange () {
-    //TODO focus next row, add if condition to not add if it already has below row
-    createNewPageField();
-    document.getElementById("next-range-" + PAGES_COUNT).addEventListener("click", onNextRange);
+  //TODO: make tests for pdf cut process
+  createNewPageField();
+  //TODO: Fix bug caused by changes in UI of next page functionality
 };

@@ -1,4 +1,12 @@
-.custom-file, .container, .card {
-  margin: 5%;
+.pdfcut-cyan {
+  background-color: #17a2b8;
+  border-color: #17a2b8;
 }
 
+.pdfcut-right {
+  float: right;
+}
+
+table.borderless td,table.borderless th{
+  border: none !important;
+}
