@@ -2,6 +2,8 @@
 document.getElementById("browse-path").addEventListener("change", onChangeChoose);
 //Cutting
 document.getElementById("generate").addEventListener("click", onClickGenerate);
+document.getElementById("next-range").addEventListener("click", onNextRange);
+
 $(".pdfcut-event").bind("click", onCutPageClick);
 document.getElementById("clear").addEventListener("click", onClickClear);
 //Convertion
@@ -145,6 +147,7 @@ function createNewPageField () {
     el.innerHTML = TEMPLATE_PAGE_FIELDS.replace("xxx", PAGES_COUNT);
     $('#pages > tbody:last-child').append(el);
     el.getElementsByClassName(INPUTELCLASS)[0].focus();
+    $(".pdfcut-event").bind("click", onCutPageClick);
 };
 
 function pdfcut_gen(ti, f, t) {
@@ -203,4 +206,9 @@ function onCutPageClick (e) {
     //TODO: Implement PDF view
     onCutPageView();
   }
+};
+
+function onNextRange () {
+  //TODO: make tests for pdf cut process
+  createNewPageField();
 };
