@@ -2,10 +2,10 @@
 document.getElementById("browse-path").addEventListener("change", onChangeChoose);
 //Cutting
 document.getElementById("generate").addEventListener("click", onClickGenerate);
-document.getElementById("next-range").addEventListener("click", onNextRange);
+$(".pdfcut-event").bind("click", onCutPageClick);
 document.getElementById("clear").addEventListener("click", onClickClear);
 //Convertion
-document.getElementById("generate").addEventListener("click", onClickConvert);
+//document.getElementById("convert").addEventListener("click", onClickConvert);
 
 global.extract = require('pdf-text-extract');
 global.hummus = require('hummus');
@@ -15,16 +15,12 @@ global.fs = require('fs');
 
 const INPUTELCLASS = 'form-control';
 const TEMPLATE_PAGE_FIELDS =
-    '<th scope="row">xxx</th>'
-  + '<td> <div class="input-group mb-2">'
-    + '<input type="text" class="title form-control" placeholder="Page Title" aria-label="Page Title" aria-describedby="basic-addon1">'
-  + '</div> </td>'
-  + '<td> <div class="input-group mb-3">'
-    + '<input type="number" class="from form-control" placeholder="From" aria-label="From" aria-describedby="basic-addon1">'
-  + '</div> </td>'
-  + '<td> <div class="input-group mb-3">'
-    + '<input type="number" class="to form-control" placeholder="To" aria-label="To" aria-describedby="basic-addon1">'
-  + '</div> </td>'
+    '<th class="num" scope="row">xxx</th>'
+  + '<td><input type="text" class="pdfcut-title form-control" aria-label="Range title" aria-describedby="basic-addon1"></td>'
+  + '<td><input type="number" class="pdfcut-from form-control" aria-label="From" aria-describedby="basic-addon1"></td>'
+  + '<td><input type="number" class="pdfcut-to form-control" aria-label="To" aria-describedby="basic-addon1"></td>'
+  + '<td><button type="button" id="pdfcut-view-xxx" class="btn pdfcut-event">View</button></td>'
+  + '<td><button type="button" id="pdfcut-gen-xxx" class="btn pdfcut-event">Gen</button></td>'
   ;
 
 global.PAGES_COUNT = 1;
@@ -56,8 +52,7 @@ function split_pdf () {
   }
 };
 
-
-function onChangeChoose (e) {
+function onChangeChoose () {
   console.log("change");
   global.sourcePDF = this.files[0].path;
   global.fileTitle = this.files[0].name.split(".pdf")[0];
@@ -70,8 +65,8 @@ function onChangeChoose (e) {
     alert("Please choose another valid PDF file");
   }
 };
-
-function onClickGenerate (e) {
+//TODO: split this function to small ones, to be more efficient to call from one range gen too
+function onClickGenerate () {
   let choose = document.getElementById("browse-path");
   if (choose.files.length && sourcePDF && outputFolder) {
     p = document.getElementById("pages");
@@ -122,17 +117,18 @@ function onClickGenerate (e) {
   }
 };
 
-function onClickConvert (e) {
+//TODO: Implement convertion tab functionality
+function onClickConvert () {
   let choose = document.getElementById("browse-path");
   if (choose.files.length && sourcePDF && outputFolder) {
-    split_pdf(authors, content_from);
+    //convert_pdf(authors, content_from);
   } else {
     alert("Please choose PDF file.");
   }
 };
 
 
-function onClickClear (e) {
+function onClickClear () {
   let p = document.getElementById("pages");
   let els = p.getElementsByClassName("page");
   for (let i = els.length - 1; i >= 0; i--) {
@@ -151,8 +147,60 @@ function createNewPageField () {
     el.getElementsByClassName(INPUTELCLASS)[0].focus();
 };
 
-function onNextRange () {
-  //TODO: make tests for pdf cut process
-  createNewPageField();
-  //TODO: Fix bug caused by changes in UI of next page functionality
+function pdfcut_gen(ti, f, t) {
+  fs.readdirSync(outputFolder).filter((file) => {
+    fs.unlinkSync(path.join(outputFolder, file));
+  });
+  console.log('-> Generating ' + ti + ' file.',
+    'Into output/' + ti + '.pdf file. From page',
+    f - 1, 'to page', t - 1, '.');
+  var pdfWriter = hummus.createWriter(
+    path.join(outputFolder, `${fileTitle + "_" + ti}.pdf`)
+  );
+  pdfWriter.appendPDFPagesFromPDF(
+    sourcePDF, {type: hummus.eRangeTypeSpecific, specificRanges: [[f - 1, t - 1]]}
+  );
+  pdfWriter.end();
+  alert('Generated new PDF files in "' + outputFolder + '" folder.');
+};
+
+function onCutPageGen (i) {
+  //TODO: Before coming here check right values then call this function
+  //TODO: Add JQuery instead of poor JS
+  let choose = $("#browse-path");
+  if (choose && sourcePDF && outputFolder) {
+    let ti = $("#page-" + i).find(".pdfcut-title").val();
+    let fr = $("#page-" + i).find(".pdfcut-from").val();
+    let to = $("#page-" + i).find(".pdfcut-to").val();
+    if ("" == ti) {
+      alert('Please fill all the empty fields then press "Gen"');
+      return;
+    } else {
+      //TODO:Do some work for later created file's right name for all platforms
+      //TEST
+      ti = ti.replace(/\./g, '');
+      ti = ti.replace(/,/g, '');
+      ti = ti.replace(/ /g, '_');
+    }
+    console.log("PUSHED", ti, fr, to);
+    pdfcut_gen(ti, fr, to);
+  } else {
+    alert("Please choose PDF file.");
+  }
+};
+
+function onCutPageView (i) {
+
+};
+
+//TODO: make tests for pdf cut process
+function onCutPageClick (e) {
+  //id still can be only  pdfcut-view-* or pdfcut-gen-*
+  let i = e.currentTarget.id.split("-")[2];
+  if (e.currentTarget.id.indexOf("pdfcut") != -1 && e.currentTarget.id.indexOf("gen") != -1) {
+    onCutPageGen(i);
+  } else {
+    //TODO: Implement PDF view
+    onCutPageView();
+  }
 };

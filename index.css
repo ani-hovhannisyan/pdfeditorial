@@ -1,12 +1,68 @@
+body {
+  font-weight: bold;
+}
+
+#cut, .custom-file-label {
+  color: #fff;
+}
+
+#cut embed, #cut thead, #cut a, .num{
+  color: #399;
+}
+
+#cut button {
+  background-color: #399;
+  color: #fff;
+}
+
 .pdfcut-cyan {
-  background-color: #17a2b8;
-  border-color: #17a2b8;
+  background-color: #399;
+  border-color: #399;
+  color: #fff;
 }
 
 .pdfcut-right {
   float: right;
 }
 
-table.borderless td,table.borderless th{
-  border: none !important;
+.card-body {
+  padding: 0px;
+}
+
+tr, th, td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.from, .to {
+  width: 4rem;
+}
+
+#pdfcut-choose-layout {
+  width: 75%;
+  height: 25%;
+}
+
+#pdfcut-table-layout {
+  width: 75%;
+}
+
+#pdfcut-controls-layout {
+  width: 25%;
+  padding: 1%;
+  display: inline-block;
+}
+
+#pdf-view {
+  border: 1px solid #399;
+  width: 80%;
+  height: 50%;
+}
+
+.card {
+  display: inline-block;
+}
+
+.title {
+  width: fit-content;
 }
