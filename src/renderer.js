@@ -1,3 +1,10 @@
+const htmlFile = require('./src/htmlFile.js');
+
+function main () {
+  let el = $('#cut-tab-content');
+  createMainHTML(el);
+};
+main();
 
 document.getElementById("browse-path").addEventListener("change", onChangeChoose);
 //Cutting
@@ -14,23 +21,6 @@ global.hummus = require('hummus');
 global.PdfReader = require("pdfreader").PdfReader;
 global.path = require('path');
 global.fs = require('fs');
-
-const INPUTELCLASS = 'form-control';
-const TEMPLATE_PAGE_FIELDS =
-    '<th class="num" scope="row">xxx</th>'
-  + '<td><input type="text" class="pdfcut-title form-control" aria-label="Range title" aria-describedby="basic-addon1"></td>'
-  + '<td><input type="number" class="pdfcut-from form-control" aria-label="From" aria-describedby="basic-addon1"></td>'
-  + '<td><input type="number" class="pdfcut-to form-control" aria-label="To" aria-describedby="basic-addon1"></td>'
-  + '<td><button type="button" id="pdfcut-view-xxx" class="btn pdfcut-event">View</button></td>'
-  + '<td><button type="button" id="pdfcut-gen-xxx" class="btn pdfcut-event">Gen</button></td>'
-  ;
-
-global.PAGES_COUNT = 1;
-global.sourcePDF = 0;
-global.outputFolder = 0;
-global.content_from = [];
-global.content_to = [];
-global.authors = [];
 
 function split_pdf () {
   fs.readdirSync(outputFolder).filter((file) => {
@@ -69,6 +59,8 @@ function onChangeChoose () {
 };
 //TODO: split this function to small ones, to be more efficient to call from one range gen too
 function onClickGenerate () {
+  //TODO: IMPORTANT: write tab change logic globally
+  tabFlag = 'pdfcut-';
   let choose = document.getElementById("browse-path");
   if (choose.files.length && sourcePDF && outputFolder) {
     p = document.getElementById("pages");
@@ -77,9 +69,9 @@ function onClickGenerate () {
     content_from = [];
     content_to = [];
     for (let i = 0; i < p.length; i++) {
-      let ti = p[i].getElementsByClassName("title")[0].value;
-      let fr = p[i].getElementsByClassName("from")[0].value;
-      let to = p[i].getElementsByClassName("to")[0].value;
+      let ti = p[i].getElementsByClassName(tabFlag + 'title')[0].value;
+      let fr = p[i].getElementsByClassName(tabFlag + 'from')[0].value;
+      let to = p[i].getElementsByClassName(tabFlag + 'to')[0].value;
       if ("" == ti) {
         alert('Please fill all empty "Title" fields.' +
               '\nOnly "To" is optional.');
@@ -144,7 +136,7 @@ function createNewPageField () {
     let el = document.createElement("tr");
     el.id = "page-" + ++PAGES_COUNT;
     el.className = "page";
-    el.innerHTML = TEMPLATE_PAGE_FIELDS.replace("xxx", PAGES_COUNT);
+    el.innerHTML = TEMPLATE_PAGE_FIELDS.replace(/xxx/g, PAGES_COUNT);
     $('#pages > tbody:last-child').append(el);
     el.getElementsByClassName(INPUTELCLASS)[0].focus();
     $(".pdfcut-event").bind("click", onCutPageClick);
@@ -172,9 +164,9 @@ function onCutPageGen (i) {
   //TODO: Add JQuery instead of poor JS
   let choose = $("#browse-path");
   if (choose && sourcePDF && outputFolder) {
-    let ti = $("#page-" + i).find(".pdfcut-title").val();
-    let fr = $("#page-" + i).find(".pdfcut-from").val();
-    let to = $("#page-" + i).find(".pdfcut-to").val();
+    let ti = $('#page-' + i).find('.' + tabFlag + 'title').val();
+    let fr = $('#page-' + i).find('.' + tabFlag + 'from').val();
+    let to = $('#page-' + i).find('.' + tabFlag + 'to').val();
     if ("" == ti) {
       alert('Please fill all the empty fields then press "Gen"');
       return;
