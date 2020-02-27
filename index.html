@@ -1,107 +1,53 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <title>PDF Editorial</title>
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="./contents/bootstrap/bootstrap.min.css" />
-  <link rel="stylesheet" type="text/css" href="index.css">
-  <!-- Bootstrap Optional JavaScript -->
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script>let $ = require('jquery');</script>
-  <script>require('popper.js');</script>
-  <script>require('bootstrap');</script>
-</head>
-<body>
-  <div class="container">
-    <h1>PDF Editorial</h1>
-    <!--Navigation Tab list for create, convert, cut, settings-->
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-      <li class="nav-item">
-        <a class="nav-link" id="create-tab" data-toggle="tab" href="#create" role="tab" aria-controls="create"
-          aria-selected="true">Create</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" id="convert-tab" data-toggle="tab" href="#convert" role="tab" aria-controls="convert"
-          aria-selected="false">Convert</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active" id="cut-tab" data-toggle="tab" href="#cut" role="tab" aria-controls="cut"
-          aria-selected="false">Cut</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="settings"
-          aria-selected="false">Settings</a>
-      </li>
-    </ul>
-    <div class="tab-content" id="myTabContent">
-      <div class="tab-pane fade" id="create" role="tabpanel" aria-labelledby="create-tab">
-        create content...</div>
-      <div class="tab-pane fade" id="convert" role="tabpanel" aria-labelledby="convert-tab">
-        convert content...</div>
-      <div class="tab-pane fade show active" id="cut" role="tabpanel" aria-labelledby="cut-tab">
-        <!-- Cut browse file content -->
-        <div class="pdfcut-choose-layout input-group mt-4 mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text pdfcut-cyan" id="inputGroupFileAddon01">Choose PDF file</span>
-          </div>
-          <div class="custom-file">
-            <input type="file" class="custom-file-input" id="browse-path" name="Choose PDF File" accept=".pdf,.PDF"
-              multiple="false" aria-describedby="inputGroupFileAddon01">
-            <label class="custom-file-label" for="inputGroupFile01">_</label>
-          </div>
+  <head>
+    <meta charset="UTF-8">
+    <!--meta http-equiv="Content-Security-Policy" content="script-src 'self';"-->
+    <title>PDF Editorial</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="./contents/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <!-- Bootstrap Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script>let $ = require('jquery');</script>
+    <script>require('popper.js');</script>
+    <script>require('bootstrap');</script>
+    <!--script type="text/javascript" src="./contents/pdf.js"></script-->
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>PDF Editorial</h1>
+      <!--Navigation Tab list for create, convert, cut, settings-->
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link" id="create-tab" data-toggle="tab" href="#create" role="tab" aria-controls="create" aria-selected="true">Create</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="convert-tab" data-toggle="tab" href="#convert" role="tab" aria-controls="convert" aria-selected="false">Convert</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" id="cut-tab" data-toggle="tab" href="#cut" role="tab" aria-controls="cut" aria-selected="false">Cut</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="settings" aria-selected="false">Settings</a>
+        </li>
+      </ul>
+      <div class="tab-content" id="tab-content">
+        <div class="tab-pane fade" id="create-tab-content" role="tabpanel" aria-labelledby="create-tab"> create content...
         </div>
-        <!-- Cut ranges content -->
-        <div class="pdfcut-choose-layout input-group">
-        <div id="pdfcut-table-layout" class="card d-flex bd-highlight">
-          <div class="card-header d-flex justify-content-between pdfcut-cyan">
-            <div class="mr-auto p-2 bd-highlight">Cutting ranges</div>
-            <button type="button" id="next-range" class="btn p-2 bd-highlight">Add</button>
-            <button type="button" id="clear" class="btn p-2 bd-highlight">Clear</button>
-          </div>
-          <div class="card-body pl-3 pr-3 pt-3">
-            <!-- Ranges table content -->
-            <table id="pages" class="borderless">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Title</th>
-                  <th scope="col">From</th>
-                  <th scope="col"> To </th>
-                  <th scope="col"></th>
-                  <th scope="col"></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="page" id="page-1">
-                  <th class="num" scope="row">1</th>
-                  <td><input type="text" class="pdfcut-title form-control" aria-label="Range title" aria-describedby="basic-addon1"></td>
-                  <td><input type="number" class="pdfcut-from form-control" aria-label="From" aria-describedby="basic-addon1"></td>
-                  <td><input type="number" class="pdfcut-to form-control" aria-label="To" aria-describedby="basic-addon1"></td>
-                  <td><button type="button" id="pdfcut-view-1" class="btn pdfcut-event">View</button></td>
-                  <td><button type="button" id="pdfcut-gen-1" class="btn pdfcut-event">Gen</button></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        <div class="tab-pane fade" id="convert-tab-content" role="tabpanel" aria-labelledby="convert-tab"> convert content...
         </div>
-        <!-- Cut left side controls content -->
-        <div id="pdfcut-controls-layout">
-          <button type="button" id="priview" class="btn">Privew</button>
-          <embed id="pdf-view" src="/home/ha/Downloads/Sumi-e and Tea Ceremony.pdf" type="application/pdf">
-          <button type="button" id="generate" class="btn">Generate All</button>
-          <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0"
-              aria-valuemax="100"></div>
-          </div>
-          <a href="#" class="stretched-link">Open Folder</a>
+        <div class="tab-pane fade show active" id="cut-tab-content" role="tabpanel" aria-labelledby="cut-tab">
+        </div>
+        <div class="tab-pane fade" id="settings-tab-content" role="tabpanel" aria-labelledby="settings-tab">...
         </div>
       </div>
+      <!--All tabs end-->
     </div>
-    <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">...</div>
-  </div>
-  </div>
-  <!-- Custom Scripts -->
-  <script type="text/javascript" src="./renderer.js"> </script>
-</body>
+    <!-- Custom Scripts -->
+    <script src="./src/htmlFile.js"> </script>
+    <script src="./src/renderer.js"> </script>
+  </body>
+
 </html>

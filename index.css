@@ -2,15 +2,19 @@ body {
   font-weight: bold;
 }
 
-#cut, .custom-file-label {
+#cut-tab-content,
+.custom-file-label {
   color: #fff;
 }
 
-#cut embed, #cut thead, #cut a, .num{
+#cut-tab-content embed,
+#cut-tab-content thead,
+#cut-tab-content a,
+.num {
   color: #399;
 }
 
-#cut button {
+#cut-tab-content button {
   background-color: #399;
   color: #fff;
 }
@@ -23,6 +27,11 @@ body {
 
 .pdfcut-right {
   float: right;
+}
+
+.cutvise {
+  color: #399 !important;
+  background-color: #fff !important;
 }
 
 .card-body {

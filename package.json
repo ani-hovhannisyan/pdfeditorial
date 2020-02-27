@@ -8,6 +8,9 @@
     "start": "electron .",
     "package-linux": "electron-packager . pdf_editorial --overwrite --asar=true --platform=linux --arch=x64 --icon=pdf_editorial.png --prune=true --out=releases"
   },
+  "build": {
+    "extraResources": ["./public/**"]
+  },
   "repository": {
     "type": "git",
     "url": "https://gitlab.com/anihovhannisyan/development_experiments.git/nodejs/pdfeditorial/"
