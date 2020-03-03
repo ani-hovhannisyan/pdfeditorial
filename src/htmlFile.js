@@ -23,20 +23,16 @@ function createMainHTML (mainEl) {
   //Init HTML page layout
   //Cut browse file content
   let browsefile =
-      '<div class="pdfcut-choose-layout input-group mt-4 mb-3">'
-    +   '<div class="input-group-prepend">'
-    +     '<span class="input-group-text pdfcut-cyan" id="inputGroupFileAddon01">Choose PDF file'
-    +     '</span>'
-    +   '</div>'
-    +   '<div class="custom-file">'
-    +     '<input type="file" class="custom-file-input" id="browse-path" name="Choose PDF File" accept=".pdf,.PDF" '
-    +            'multiple="false" aria-describedby="inputGroupFileAddon01">'
-    +     '<label class="custom-file-label" for="inputGroupFile01">_'
-    +     '</label>'
-    +   '</div>'
-    + '</div>'
-  ;
+       '<div class="file-upload">'
+    +    '<div class="file-select">'
+    +      '<div class="file-select-button" id="fileName">Choose File</div>'
+    +      '<div class="file-select-name" id="noFile">No file chosen...</div>'
+    +      '<input type="file" name="browse-path" id="browse-path">'
+    +    '</div>'
+    +  '</div>';
+
   mainEl.append(browsefile);
+
   let chooserange =
      '<div class="pdfcut-choose-layout input-group">'
     +  '<div id="pdfcut-table-layout" class="card d-flex bd-highlight">'
@@ -88,7 +84,7 @@ function createMainHTML (mainEl) {
     +     '<div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0">'
     +     '</div>'
     +   '</div>'
-    +   '<a class="hided" href="#" class="stretched-link">Open Folder</a>'
+    +   '<a class="hided" href="#" class="stretched-link">Open Folder</a-->'
     + '</div>'
     ;
   mainEl.append(cutcontrols);

@@ -1,77 +1,99 @@
 body {
   font-weight: bold;
 }
-
 #cut-tab-content,
 .custom-file-label {
   color: #fff;
 }
-
 #cut-tab-content embed,
 #cut-tab-content thead,
 #cut-tab-content a,
 .num {
   color: #399;
 }
-
 #cut-tab-content button {
   background-color: #399;
   color: #fff;
 }
-
 .pdfcut-cyan {
   background-color: #399;
   border-color: #399;
   color: #fff;
 }
-
 .pdfcut-right {
   float: right;
 }
-
 .cutvise {
   color: #399 !important;
   background-color: #fff !important;
 }
-
 .card-body {
   padding: 0px;
 }
-
 tr, th, td {
   text-align: center;
   vertical-align: middle;
 }
-
 .from, .to {
   width: 4rem;
 }
-
 #pdfcut-choose-layout {
   width: 75%;
   height: 25%;
 }
-
 #pdfcut-table-layout {
   width: 75%;
 }
-
 #pdfcut-controls-layout {
   width: 25%;
   padding: 1%;
   display: inline-block;
 }
-
 #pdf-view {
   border: 1px solid #399;
   width: 80%;
   height: 50%;
 }
-
 .card {
   display: inline-block;
 }
 
-.title {
-  width: fit-content;
+/* File upload style */
+/*TODO: Clear file select unecessary styles*/
+.copyright {
+  display:block;
+  margin-top: 100px;
+  text-align: center;
+  text-transform: uppercase;
 }
+.copyright a{
+  text-decoration: none;
+  color: #EE4E44; }
+.file-select {
+  width: 75%; }
+/* CODE */
+.file-upload {
+  display:block;text-align:center;}
+.file-upload .file-select {
+  display:block;border: 2px solid #dce4ec;color: #34495e;
+  cursor:pointer;height:40px;
+  line-height:40px;text-align:left;background:#FFFFFF;
+position:relative; }
+.file-upload .file-select .file-select-button {
+  background:#dce4ec;padding:0 10px;display:inline-block;
+  height:40px;line-height:40px;}
+.file-upload .file-select .file-select-name {
+  line-height:40px;display:inline-block;padding:0 10px;}
+.file-upload.active .file-select {
+  border-color:#399;
+}
+.file-upload.active .file-select .file-select-button {
+  background:#399;color:#FFFFFF;
+}
+.file-upload .file-select input[type=file] {
+  z-index:100;cursor:pointer;position:absolute;
+  height:100%;width:100%;top:0;left:0;
+  opacity:0;filter:alpha(opacity=0);}
+
+.file-upload .file-select.file-select-disabled {
+  opacity:0.65;}

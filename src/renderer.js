@@ -11,28 +11,44 @@ document.getElementById("browse-path").addEventListener("change", onChangeChoose
 document.getElementById("generate").addEventListener("click", onClickGenerate);
 document.getElementById("next-range").addEventListener("click", onNextRange);
 
+$('#browse-path').bind('change', onBrowsePathClick)
 $(".pdfcut-event").bind("click", onCutPageClick);
 document.getElementById("clear").addEventListener("click", onClickClear);
 //Convertion
 //document.getElementById("convert").addEventListener("click", onClickConvert);
 
-global.extract = require('pdf-text-extract');
 global.hummus = require('hummus');
-global.PdfReader = require("pdfreader").PdfReader;
 global.path = require('path');
 global.fs = require('fs');
 
-function split_pdf () {
+function onBrowsePathClick() {
+  var filename = $("#browse-path").val();
+  if (/^\s*$/.test(filename)) {
+    $(".file-upload").removeClass('active');
+    $("#noFile").text("No file chosen...");
+  } else {
+    $(".file-upload").addClass('active');
+    $("#noFile").text(filename.replace("C:\\fakepath\\", ""));
+  }
+});
+
+function split_pdf() {
   fs.readdirSync(outputFolder).filter((file) => {
     fs.unlinkSync(path.join(outputFolder, file));
   });
+  var pdfWriter;
   for (let j = 0; j < authors.length; j++) {
     console.log('-> Generating ' + j + ' - th file.',
       'Into output/' + authors[j] + '.pdf file. From page',
       (content_from[j]) - 1, 'to page', (content_to[j] - 1) , '.');
-
-    var pdfWriter = hummus.createWriter(path.join(outputFolder,
-                   `${fileTitle + "_" + authors[j]}.pdf`));
+  pdfWriter = hummus.createWriter(path.join(outputFolder,
+    `${fileTitle + "_" + authors[j]}.pdf`));
+    if (content_from[j] > pdfWriter.getImagePagesCount(sourcePDF)
+       || content_to[j] > pdfWriter.getImagePagesCount(sourcePDF)){
+      alert("Please correct the specified ranges."
+            + "\nThere is greater than the total pages count range.");
+        return;
+    }
     pdfWriter.appendPDFPagesFromPDF( sourcePDF, {
           type: hummus.eRangeTypeSpecific,
           specificRanges: [ [ content_from[j] - 1, content_to[j] - 1 ] ]
@@ -62,7 +78,7 @@ function onClickGenerate () {
   //TODO: IMPORTANT: write tab change logic globally
   tabFlag = 'pdfcut-';
   let choose = document.getElementById("browse-path");
-  if (choose.files.length && sourcePDF && outputFolder) {
+  if (choose.files.length && sourcePDF && fs.existsSync(outputFolder)) {
     p = document.getElementById("pages");
     p = p.getElementsByClassName("page");
     authors = [];
@@ -162,6 +178,8 @@ function pdfcut_gen(ti, f, t) {
 function onCutPageGen (i) {
   //TODO: Before coming here check right values then call this function
   //TODO: Add JQuery instead of poor JS
+  //TODO: IMPORTANT: write tab change logic globally
+  tabFlag = 'pdfcut-';
   let choose = $("#browse-path");
   if (choose && sourcePDF && outputFolder) {
     let ti = $('#page-' + i).find('.' + tabFlag + 'title').val();
@@ -185,18 +203,35 @@ function onCutPageGen (i) {
 };
 
 function onCutPageView (i) {
+  //TODO: Implement normally viewer
+  const filePath = "/home/ha/Downloads/Sumi-e and Tea Ceremony.pdf";
+  const viewerEle = document.getElementById('viewer');
+  viewerEle.innerHTML = ''; // destroy the old instance of PDF.js (if it exists)
+  // Create an iframe that points to our PDF.js viewer, and tell PDF.js to open the file that was selected from the file picker.
+  const iframe = document.createElement('iframe');
+  iframe.src = path.resolve(__dirname, `../public/pdfjs/web/viewer.html?file=${filePath}`);
+  // Add the iframe to our UI.
+  viewerEle.appendChild(iframe);
+};
 
+function onCutPageDel (i) {
+  $('#page-' + i).find('input').val("");
 };
 
 //TODO: make tests for pdf cut process
 function onCutPageClick (e) {
   //id still can be only  pdfcut-view-* or pdfcut-gen-*
+  //TODO:Implemetn better way of index functionality detector
   let i = e.currentTarget.id.split("-")[2];
-  if (e.currentTarget.id.indexOf("pdfcut") != -1 && e.currentTarget.id.indexOf("gen") != -1) {
-    onCutPageGen(i);
-  } else {
-    //TODO: Implement PDF view
-    onCutPageView();
+  if (e.currentTarget.id.indexOf("pdfcut") != -1) {
+    if (e.currentTarget.id.indexOf("gen") != -1) {
+      onCutPageGen(i);
+    } else if (e.currentTarget.id.indexOf("view") != -1) {
+      //TODO: Implement PDF view
+      onCutPageView(i);
+    } else {
+      onCutPageDel(i);
+    }
   }
 };
 
@@ -204,3 +239,5 @@ function onNextRange () {
   //TODO: make tests for pdf cut process
   createNewPageField();
 };
+
+//TODO: Implement progress bar functionality
