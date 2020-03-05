@@ -1,7 +1,7 @@
 const htmlFile = require('./src/htmlFile.js');
 
 function main () {
-  let el = $('#cut-tab-content');
+  let el = $('#cut');
   createMainHTML(el);
 };
 main();
@@ -30,7 +30,7 @@ function onBrowsePathClick() {
     $(".file-upload").addClass('active');
     $("#noFile").text(filename.replace("C:\\fakepath\\", ""));
   }
-});
+};
 
 function split_pdf() {
   fs.readdirSync(outputFolder).filter((file) => {
