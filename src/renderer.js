@@ -1,25 +1,21 @@
-const htmlFile = require('./src/htmlFile.js');
-
-function main () {
-  let el = $('#cut');
-  createMainHTML(el);
-};
-main();
-
-document.getElementById("browse-path").addEventListener("change", onChangeChoose);
-//Cutting
-document.getElementById("generate").addEventListener("click", onClickGenerate);
-document.getElementById("next-range").addEventListener("click", onNextRange);
-
-$('#browse-path').bind('change', onBrowsePathClick)
-$(".pdfcut-event").bind("click", onCutPageClick);
-document.getElementById("clear").addEventListener("click", onClickClear);
-//Convertion
-//document.getElementById("convert").addEventListener("click", onClickConvert);
-
 global.hummus = require('hummus');
 global.path = require('path');
 global.fs = require('fs');
+global.pdf2html = require('pdf2html')
+
+const htmlFile = require('./src/htmlFile.js');
+
+function addEventListeners() {
+  //Cutting
+  document.getElementById("browse-path").addEventListener("change", onChangeChoose);
+  document.getElementById("cut-generate").addEventListener("click", onClickGenerate);
+  document.getElementById("next-range").addEventListener("click", onNextRange);
+  $('#browse-path').bind('change', onBrowsePathClick)
+  $(".pdfcut-event").bind("click", onCutPageClick);
+  document.getElementById("clear").addEventListener("click", onClickClear);
+  //Convertion
+  document.getElementById("con-generate").addEventListener("click", onClickConvert);
+};
 
 function onBrowsePathClick() {
   var filename = $("#browse-path").val();
@@ -152,7 +148,7 @@ function createNewPageField () {
     let el = document.createElement("tr");
     el.id = "page-" + ++PAGES_COUNT;
     el.className = "page";
-    el.innerHTML = TEMPLATE_PAGE_FIELDS.replace(/xxx/g, PAGES_COUNT);
+    el.innerHTML = CUTTEMPLATE_PAGE_FIELDS.replace(/xxx/g, PAGES_COUNT);
     $('#pages > tbody:last-child').append(el);
     el.getElementsByClassName(INPUTELCLASS)[0].focus();
     $(".pdfcut-event").bind("click", onCutPageClick);
@@ -235,9 +231,19 @@ function onCutPageClick (e) {
   }
 };
 
+function onClickConvert() {
+
+};
+
 function onNextRange () {
   //TODO: make tests for pdf cut process
   createNewPageField();
 };
+
+function main () {
+  createMainHTML();
+  addEventListeners();
+};
+main();
 
 //TODO: Implement progress bar functionality

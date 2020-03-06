@@ -8,9 +8,7 @@
     "start": "electron .",
     "package-linux": "electron-packager . pdf_editorial --overwrite --asar=true --platform=linux --arch=x64 --icon=pdf_editorial.png --prune=true --out=releases"
   },
-  "build": {
-    "extraResources": ["./public/**"]
-  },
+  "build": {},
   "repository": {
     "type": "git",
     "url": "https://gitlab.com/anihovhannisyan/development_experiments.git/nodejs/pdfeditorial/"
@@ -27,6 +25,7 @@
     "eslint": "^6.8.0",
     "hummus": "^1.0.95",
     "jquery": "^3.3.1",
+    "pdf2html": "^2.5.0",
     "popper.js": "^1.14.4"
   },
   "devDependencies": {

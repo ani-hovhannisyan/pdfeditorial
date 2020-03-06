@@ -1,17 +1,17 @@
 body {
   font-weight: bold;
 }
-#cut-tab-content,
+#cut,
 .custom-file-label {
   color: #fff;
 }
-#cut-tab-content embed,
-#cut-tab-content thead,
-#cut-tab-content a,
+#cut embed,
+#cut thead,
+#cut a,
 .num {
   color: #399;
 }
-#cut-tab-content button {
+#cut button {
   background-color: #399;
   color: #fff;
 }
@@ -43,6 +43,10 @@ tr, th, td {
 }
 #pdfcut-table-layout {
   width: 75%;
+  border: 1px solid #399;
+}
+#pdfcut-table-layout input{
+  border: 1px solid #399;
 }
 #pdfcut-controls-layout {
   width: 25%;
@@ -69,31 +73,37 @@ tr, th, td {
 .copyright a{
   text-decoration: none;
   color: #EE4E44; }
-.file-select {
-  width: 75%; }
 /* CODE */
 .file-upload {
   display:block;text-align:center;}
 .file-upload .file-select {
-  display:block;border: 2px solid #dce4ec;color: #34495e;
+  width: 75%;
+  border: 1px solid #399;
+  border-radius: 4px;
+  padding: 0px;
+  display:block;
   cursor:pointer;height:40px;
   line-height:40px;text-align:left;background:#FFFFFF;
-position:relative; }
-.file-upload .file-select .file-select-button {
-  background:#dce4ec;padding:0 10px;display:inline-block;
-  height:40px;line-height:40px;}
-.file-upload .file-select .file-select-name {
-  line-height:40px;display:inline-block;padding:0 10px;}
-.file-upload.active .file-select {
-  border-color:#399;
+  position:relative;
 }
-.file-upload.active .file-select .file-select-button {
-  background:#399;color:#FFFFFF;
+.file-upload .file-select .file-select-button {
+  background:#399;
+  color: #fff;
+  padding:0 10px;
+  display:inline-block;
+  height:39px;
+  line-height:39px;
+}
+.file-upload .file-select .file-select-name {
+  color: #399;
+  line-height:40px;
+  display:inline-block;
+  padding:0 10px;
 }
 .file-upload .file-select input[type=file] {
   z-index:100;cursor:pointer;position:absolute;
   height:100%;width:100%;top:0;left:0;
   opacity:0;filter:alpha(opacity=0);}
-
 .file-upload .file-select.file-select-disabled {
-  opacity:0.65;}
+  opacity:0.65;
+}
