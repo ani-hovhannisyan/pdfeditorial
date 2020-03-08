@@ -1,30 +1,47 @@
-global.hummus = require('hummus');
-global.path = require('path');
-global.fs = require('fs');
-global.pdf2html = require('pdf2html')
+const hummus = require('hummus');
+const path = require('path');
+const fs = require('fs');
+const pdf2html = require('pdf2html');
 
 const htmlFile = require('./src/htmlFile.js');
 
 function addEventListeners() {
   //Cutting
-  document.getElementById("browse-path").addEventListener("change", onChangeChoose);
-  document.getElementById("cut-generate").addEventListener("click", onClickGenerate);
+  //TODO: Move this change logic when is creating folder to generate part or settings tab
+  $(".browse-file").bind("change", onChangeChoose);
+  document.getElementById("cut-generate").addEventListener("click", onCutGenerateClick);
   document.getElementById("next-range").addEventListener("click", onNextRange);
-  $('#browse-path').bind('change', onBrowsePathClick)
+  $('.browse-file').bind('change', onBrowseFileClick)
   $(".pdfcut-event").bind("click", onCutPageClick);
   document.getElementById("clear").addEventListener("click", onClickClear);
   //Convertion
-  document.getElementById("con-generate").addEventListener("click", onClickConvert);
+  document.getElementById("con-generate").addEventListener("click", onClickConvertGenerate);
+  $(".pdfcon-event-from").bind("click", onClickConvertFrom);
+  $(".pdfcon-event-to").bind("click", onClickConvertTo);
 };
 
-function onBrowsePathClick() {
-  var filename = $("#browse-path").val();
+function onClickConvertFrom(e){
+  //button class sample pdfcon-pdf/docx/html/text-from/to
+  let ext = e.currentTarget.textContent;
+  convertFrom = ext;
+  console.log('Choosed from: ', convertFrom);
+};
+
+function onClickConvertTo(e){
+  //button class sample pdfcon-pdf/docx/html/text-from/to
+  let ext = e.currentTarget.textContent;
+  convertTo = ext;
+  console.log('Choosed to: ', convertTo);
+};
+
+function onBrowseFileClick(e) {
+  var filename = e.target.files[0].name;
   if (/^\s*$/.test(filename)) {
     $(".file-upload").removeClass('active');
-    $("#noFile").text("No file chosen...");
+    $(".noFile").text("No file chosen...");
   } else {
     $(".file-upload").addClass('active');
-    $("#noFile").text(filename.replace("C:\\fakepath\\", ""));
+    $(".noFile").text(filename);
   }
 };
 
@@ -70,10 +87,11 @@ function onChangeChoose () {
   }
 };
 //TODO: split this function to small ones, to be more efficient to call from one range gen too
-function onClickGenerate () {
+function onCutGenerateClick () {
   //TODO: IMPORTANT: write tab change logic globally
+  //TODO: Enhance finding browsed file parapeters to not mix with convert browsed file
   tabFlag = 'pdfcut-';
-  let choose = document.getElementById("browse-path");
+  let choose = $("#cut").find('.browse-file')[0];
   if (choose.files.length && sourcePDF && fs.existsSync(outputFolder)) {
     p = document.getElementById("pages");
     p = p.getElementsByClassName("page");
@@ -124,13 +142,18 @@ function onClickGenerate () {
 };
 
 //TODO: Implement convertion tab functionality
-function onClickConvert () {
-  let choose = document.getElementById("browse-path");
-  if (choose.files.length && sourcePDF && outputFolder) {
-    //convert_pdf(authors, content_from);
-  } else {
-    alert("Please choose PDF file.");
-  }
+function onClickConvertGenerate() {
+  pdf2html.html('sumi.pdf', (err, html) => {
+    if (err) {
+      console.error('Conversion error: ' + err)
+    } else {
+      fs.writeFile('done.html', html, (err) => {
+        if (err) throw err;
+        console.log('The HTML file has been saved!');
+      });
+    }
+  });
+  alert('The ' + convertFrom + ' file to ' + convertTo + ' file conversion completed.');
 };
 
 
@@ -171,12 +194,12 @@ function pdfcut_gen(ti, f, t) {
   alert('Generated new PDF files in "' + outputFolder + '" folder.');
 };
 
-function onCutPageGen (i) {
+function onCutGen (i) {
   //TODO: Before coming here check right values then call this function
   //TODO: Add JQuery instead of poor JS
   //TODO: IMPORTANT: write tab change logic globally
   tabFlag = 'pdfcut-';
-  let choose = $("#browse-path");
+  let choose = $(".browse-path");
   if (choose && sourcePDF && outputFolder) {
     let ti = $('#page-' + i).find('.' + tabFlag + 'title').val();
     let fr = $('#page-' + i).find('.' + tabFlag + 'from').val();
@@ -221,7 +244,7 @@ function onCutPageClick (e) {
   let i = e.currentTarget.id.split("-")[2];
   if (e.currentTarget.id.indexOf("pdfcut") != -1) {
     if (e.currentTarget.id.indexOf("gen") != -1) {
-      onCutPageGen(i);
+      onCutGen(i);
     } else if (e.currentTarget.id.indexOf("view") != -1) {
       //TODO: Implement PDF view
       onCutPageView(i);
@@ -229,10 +252,6 @@ function onCutPageClick (e) {
       onCutPageDel(i);
     }
   }
-};
-
-function onClickConvert() {
-
 };
 
 function onNextRange () {

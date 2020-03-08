@@ -3,29 +3,29 @@ body {
 }
 #cut,
 .custom-file-label {
-  color: #fff;
+  color: #FFFFFF;
 }
 #cut embed,
 #cut thead,
 #cut a,
 .num {
-  color: #399;
+  color: #339999;
 }
 #cut button {
-  background-color: #399;
-  color: #fff;
+  background-color: #339999;
+  color: #FFFFFF;
 }
 .pdfcut-cyan {
-  background-color: #399;
-  border-color: #399;
-  color: #fff;
+  background-color: #339999;
+  border-color: #339999;
+  color: #FFFFFF;
 }
 .pdfcut-right {
   float: right;
 }
 .cutvise {
-  color: #399 !important;
-  background-color: #fff !important;
+  color: #339999 !important;
+  background-color: #FFFFFF !important;
 }
 .card-body {
   padding: 0px;
@@ -38,15 +38,13 @@ tr, th, td {
   width: 4rem;
 }
 #pdfcut-choose-layout {
-  width: 75%;
   height: 25%;
 }
 #pdfcut-table-layout {
-  width: 75%;
-  border: 1px solid #399;
+  border: 1px solid #339999;
 }
 #pdfcut-table-layout input{
-  border: 1px solid #399;
+  border: 1px solid #339999;
 }
 #pdfcut-controls-layout {
   width: 25%;
@@ -54,7 +52,7 @@ tr, th, td {
   display: inline-block;
 }
 #pdf-view {
-  border: 1px solid #399;
+  border: 1px solid #339999;
   width: 80%;
   height: 50%;
 }
@@ -77,8 +75,6 @@ tr, th, td {
 .file-upload {
   display:block;text-align:center;}
 .file-upload .file-select {
-  width: 75%;
-  border: 1px solid #399;
   border-radius: 4px;
   padding: 0px;
   display:block;
@@ -87,15 +83,22 @@ tr, th, td {
   position:relative;
 }
 .file-upload .file-select .file-select-button {
-  background:#399;
-  color: #fff;
+  color: #FFFFFF;
   padding:0 10px;
   display:inline-block;
   height:39px;
   line-height:39px;
 }
+#pdfcut-tab .file-upload .file-select {
+  border: 1px solid #339999;
+}
+#pdfcut-tab .file-upload .file-select .file-select-button {
+  background:#339999;
+}
+#pdfcut-tab .file-upload .file-select .file-select-name {
+  color: #339999;
+}
 .file-upload .file-select .file-select-name {
-  color: #399;
   line-height:40px;
   display:inline-block;
   padding:0 10px;
@@ -107,3 +110,47 @@ tr, th, td {
 .file-upload .file-select.file-select-disabled {
   opacity:0.65;
 }
+/* Convert styles*/
+#convert{
+  color: #339933;
+}
+#convert button{
+  background-color: #339933;
+  color: #FFFFFF;
+}
+#convert .card-header{
+  background: #339933;
+  color: #FFFFFF;
+}
+#convert .card{
+  border:1px solid #339933;
+}
+#pdfcon-choose-layout {
+  width: fit-content;
+}
+#pdfcon-controls-layout{
+  width: -webkit-fill-available;
+}
+#pdfcon-draggable-area{
+  width: 100%;
+  height: 60px;
+  border: 1px dotted #339933;
+}
+#con-types button, #pdfcon-draggable-area button{
+  width: 100px;
+  height: 40px;
+  margin: 5px 5px 5px 10px;
+}
+#pdfcon-draggable-area button{
+  background: #999999;
+}
+#pdfcon-controls-layout .file-upload .file-select {
+  border: 1px solid #339933;
+}
+#pdfcon-controls-layout .file-upload .file-select .file-select-button {
+  background:#339933;
+}
+#pdfcon-controls-layout .file-upload .file-select .file-select-name {
+  color: #339933;
+}
+#pdfcon-controls-layout .file-select-button

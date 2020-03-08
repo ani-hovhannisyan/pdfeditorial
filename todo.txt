@@ -1,0 +1,7 @@
+This file contains TODO lists that ever very necessary during the development
+process.
+
+TODO list
+1. pdf converter module uses JAVA environment, we installed default-jre in
+ubuntu to be able to run it, also there was npm-jre module but it wasn't
+enough to run. Will be better to use other cheaper libs for conversion.
