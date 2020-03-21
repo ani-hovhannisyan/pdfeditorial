@@ -1,6 +1,12 @@
 body {
   font-weight: bold;
 }
+
+/* Cut styles*/
+#cut-tab {
+  background-color: #339999;
+  color: #FFFFFF;
+}
 #cut,
 .custom-file-label {
   color: #FFFFFF;
@@ -47,8 +53,6 @@ tr, th, td {
   border: 1px solid #339999;
 }
 #pdfcut-controls-layout {
-  width: 25%;
-  padding: 1%;
   display: inline-block;
 }
 #pdf-view {
@@ -111,6 +115,10 @@ tr, th, td {
   opacity:0.65;
 }
 /* Convert styles*/
+#convert-tab {
+  background-color: #339933;
+  color: #FFFFFF;
+}
 #convert{
   color: #339933;
 }
@@ -154,3 +162,15 @@ tr, th, td {
   color: #339933;
 }
 #pdfcon-controls-layout .file-select-button
+
+/* Create styles*/
+#create-tab {
+  background-color: #ff0000;
+  color: #FFFFFF;
+}
+
+/* Settings styles*/
+#settings-tab {
+  background-color: #999999;
+  color: #FFFFFF;
+}

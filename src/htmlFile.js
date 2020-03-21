@@ -64,20 +64,20 @@ function initConvertTabContent(mainEl) {
     + '</div>';
   let convertfile =
       '<div class="file-upload">'
-    +   '<div class="file-select mt-3 mb-2">'
+    +   '<div class="file-select mb-2">'
     +     '<div class="file-select-button">Choose File</div>'
     +     '<div class="file-select-name noFile">No file chosen...</div>'
     +     '<input type="file" name="browse-file" class="browse-file">'
     +   '</div>'
     + '</div>';
   let convertToolsLayout =
-      '<div id="pdfcon-controls-layout">'
+      '<div id="pdfcon-controls-layout" class="ml-2 mr-2">'
     + convertfile
-    +   '<div id="pdfcon-draggable-area" class="d-flex">'
+    +   '<div id="pdfcon-draggable-area" class="d-flex justify-content-between">'
     +     '<button type="button" id="pdfcon-from" class="btn disabled">From</button>'
     +     '<button type="button" id="pdfcon-to" class="btn disabled">To</button>'
     +   '</div>'
-    +   '<button type="button" id="con-generate" class="btn ml-5">Generate</button>'
+    +   '<button type="button" id="con-generate" class="btn mt-2">Generate</button>'
     + '</div>';
   mainEl.append(chooseConvertLayout).append(convertToolsLayout);
 };
@@ -119,7 +119,7 @@ function initCutTabContent(mainEl) {
   let cutcontrols =
       '<div id="pdfcut-controls-layout">'
     +   '<div class="viewer" id="viewer"></div>'
-    +   '<button type="button" id="cut-generate" class="btn">Generate All</button>'
+    +   '<button type="button" id="cut-generate" class="btn mt-2">Generate All</button>'
     + '</div>';
   mainEl.append(cutcontrols);
 };
