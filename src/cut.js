@@ -39,7 +39,7 @@ module.exports = {
             specificRanges: [ [ content_from[j] - 1, content_to[j] - 1 ] ]
       });
       pdfWriter.end();
-      if (j == authors.length - 1) {
+      if (j == authors.length - 1){
         alert('Generated new PDF files in "' + outputFolder + '" folder.');
       }
     }
@@ -121,9 +121,6 @@ module.exports = {
       $(".pdfcut-event").bind("click", Cut.onCutPageClick);
   },
   pdfcut_gen: function(ti, f, t){
-    fs.readdirSync(outputFolder).filter((file) => {
-      fs.unlinkSync(path.join(outputFolder, file));
-    });
     console.log('-> Generating ' + ti + ' file.',
       'Into output/' + ti + '.pdf file. From page',
       f - 1, 'to page', t - 1, '.');

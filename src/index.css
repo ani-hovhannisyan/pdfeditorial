@@ -174,3 +174,9 @@ tr, th, td {
   background-color: #999999;
   color: #FFFFFF;
 }
+/*Progress bar*/
+#pdfcon-progress-bar {
+  background-color: #339933;
+  background: repeating-linear-gradient(45deg, #339933,
+    #339933 10px, #006600 10px, #006600 20px);
+}

@@ -1,6 +1,6 @@
-const htmlFile = require('./src/htmlFile.js');
-const Convert = require('./src/convert.js');
-const Cut = require('./src/cut.js');
+const htmlFile = require('./htmlFile.js');
+const Convert = require('./convert.js');
+const Cut = require('./cut.js');
 
 function addEventListeners() {
   //Cutting

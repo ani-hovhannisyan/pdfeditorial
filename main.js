@@ -13,7 +13,7 @@ function createWindow () {
       plugins: true
     }
   });
-  win.loadFile('index.html');
+  win.loadFile('./src/index.html');
   win.webContents.openDevTools();
   console.log('Node JS version ', process.versions.node);
   console.log('Chrome version ', process.versions.chrome);

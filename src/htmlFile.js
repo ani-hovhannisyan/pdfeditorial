@@ -3,11 +3,9 @@
 global.PAGES_COUNT = 1;
 global.sourcePDF = 0;
 global.outputFolder = 0;
-global.content_from = [];
-global.content_to = [];
 global.authors = [];
 global.tabFlag = ['pdfcre-', 'pdfcon-', 'pdfcut-', 'pdfset-'];
-//COnvertion globals
+//Convertion globals
 const convertFormats = {1: 'PDF', 2: 'HTML', 3: 'DOCX', 4: 'TEXT'};
 global.convertType = '';
 global.convertFrom = 0;
@@ -39,15 +37,15 @@ function initConvertTabContent(mainEl) {
     +       '<td><button type="button" class="btn pdfcon-event-to">PDF</button></td>'
     +     '</tr>'
     +     '<tr class="con-type" id="type-2">'
-    +       '<td><button type="button" class="btn pdfcon-event-from">HTML</button></td>'
+    +       '<td><button type="button" class="btn disabled pdfcon-event-from">HTML</button></td>'
     +       '<td><button type="button" class="btn pdfcon-event-to ">HTML</button></td>'
     +     '</tr>'
     +     '<tr class="con-type" id="type-3">'
-    +       '<td><button type="button" class="btn pdfcon-event-from">Docx</button></td>'
+    +       '<td><button type="button" class="btn disabled pdfcon-event-from">Docx</button></td>'
     +       '<td><button type="button" class="btn pdfcon-event-to ">Docx</button></td>'
     +     '</tr>'
     +     '<tr class="con-type" id="type-4">'
-    +       '<td><button type="button" class="btn pdfcon-event-from">Text</button></td>'
+    +       '<td><button type="button" class="btn disabled pdfcon-event-from">Text</button></td>'
     +       '<td><button type="button" class="btn pdfcon-event-to">Text</button></td>'
     +     '</tr>'
     +   '</tbody>'
@@ -74,9 +72,14 @@ function initConvertTabContent(mainEl) {
       '<div id="pdfcon-controls-layout" class="ml-2 mr-2">'
     + convertfile
     +   '<div id="pdfcon-draggable-area" class="d-flex justify-content-between">'
-    +     '<button type="button" id="pdfcon-from" class="btn disabled">From</button>'
-    +     '<button type="button" id="pdfcon-to" class="btn disabled">To</button>'
+    +     '<button type="button" id="pdfcon-from" class="btn mt-2">From</button>'
+    +     '<button type="button" id="pdfcon-to" class="btn mt-2 mr-2">To</button>'
     +   '</div>'
+    +   '<div class="progress mt-2">'
+    +     '<div class="progress-bar" id="pdfcon-progress-bar" role="progressbar" '
+    +       'aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" style="width:10%"> 10%'
+    +     '</div>'
+    +   '</div> '
     +   '<button type="button" id="con-generate" class="btn mt-2">Generate</button>'
     + '</div>';
   mainEl.append(chooseConvertLayout).append(convertToolsLayout);
